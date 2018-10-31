@@ -23,6 +23,7 @@ function switchPlayer(turn) {
   } else {
     turn = 0;
   }
+  console.log("swapping players");
   return turn;
 }
 
@@ -30,9 +31,11 @@ Player.prototype.increasePool = function(currentPlayer) {
   var roll = rollDice();
   if (roll) {
     this.pool += roll;
-    return this.pool;
+    console.log(this.player + "'s current pool is: " + this.pool);
+    return roll;
   } else {
     this.pool = 0;
+    console.log("oh no, you rolled a 1");
     return false;
   }
 }
@@ -44,7 +47,7 @@ Player.prototype.hold = function(currentPlayer){
 
     return true;
   } else {
-    console.log("your score is now: " + this.score)
+    console.log(this.player + "'s score is now: " + this.score)
     return false;
   }
 }
@@ -53,20 +56,13 @@ Player.prototype.hold = function(currentPlayer){
 
 // UI Logic - - - - - - - - - - - - - - - - - - -
 
-// if (!increasePool || !hold) {
-//   currentPlayer = switchPlayer(currentPlayer);
-// }
-
-
-
-
-
-// players[currentPlayer].increasePool
-
-
-
-
-
+function updateScore(p1currentScore, p2currentScore, p1currentPool, p2currentPool, diceRoll="no roll") {
+  $("#p1score").text(p1currentScore);
+  $("#p1pool").text(p1currentPool);
+  $("#p2score").text(p2currentScore);
+  $("#p2pool").text(p2currentPool);
+  $("#die").text(diceRoll);
+}
 
 
 
@@ -77,10 +73,17 @@ $(document).ready(function() {
   var currentPlayer = 0;
   $("#roll-dice-btn").click(function(event){
     event.preventDefault();
+
     var dice = players[currentPlayer].increasePool(currentPlayer);
-    if(!== dice){
+    if(!dice){
       currentPlayer = switchPlayer(currentPlayer);
+      dice = "BUST"
     }
+    var p1score = players[0].score
+    var p1pool = players[0].pool
+    var p2score = players[1].score
+    var p2pool = players[1].pool
+    updateScore(p1score, p2score, p1pool, p2pool, dice);
   });
   $("#hold-btn").click(function(event) {
     event.preventDefault();
@@ -92,7 +95,11 @@ $(document).ready(function() {
         currentPlayer = switchPlayer(currentPlayer);
       }
 
-
+      var p1score = players[0].score
+      var p1pool = players[0].pool
+      var p2score = players[1].score
+      var p2pool = players[1].pool
+      updateScore(p1score, p2score, p1pool, p2pool);
 
 
   });
