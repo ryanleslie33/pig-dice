@@ -43,7 +43,7 @@ Player.prototype.increasePool = function(currentPlayer) {
 Player.prototype.hold = function(currentPlayer){
   this.score += this.pool;
   this.pool = 0;
-  if(this.score >= 100){
+  if(this.score >= 10){
 
     return true;
   } else {
@@ -63,12 +63,24 @@ function updateScore(p1currentScore, p2currentScore, p1currentPool, p2currentPoo
   $("#p2pool").text(p2currentPool);
   $("#die").text(diceRoll);
 }
+function displayWinner(playersArray, currentPlayer){
+  var winner = playersArray[currentPlayer];
+  var loser = playersArray[switchPlayer(currentPlayer)];
+  console.log("the winner is: " + winner.player + " and the loser is: " + loser.player);
+  $("#winner-name").text(winner.player);
+  $("#loser-name").text(loser.player);
+  $("#Wscore").text(winner.score);
+  $("#Lscore").text(loser.score);
+  $(".winnerdisplay").toggle();
+
+
+}
 
 
 
 $(document).ready(function() {
-  var playerOne = new Player("testers");
-  var playerTwo = new Player("enemy");
+  var playerOne = new Player("player1");
+  var playerTwo = new Player("player2");
   var players = [playerOne, playerTwo];
   var currentPlayer = 0;
   $("#roll-dice-btn").click(function(event){
@@ -88,18 +100,19 @@ $(document).ready(function() {
   $("#hold-btn").click(function(event) {
     event.preventDefault();
 
-      var turn = players[currentPlayer].hold(currentPlayer);
-      if (turn) {
-        console.log("You are the winner!!!!!");
-      } else {
-        currentPlayer = switchPlayer(currentPlayer);
-      }
+    var turn = players[currentPlayer].hold(currentPlayer);
+    if (turn) {
+      displayWinner(players, currentPlayer);
+    } else {
+      currentPlayer = switchPlayer(currentPlayer);
+    }
 
-      var p1score = players[0].score
-      var p1pool = players[0].pool
-      var p2score = players[1].score
-      var p2pool = players[1].pool
-      updateScore(p1score, p2score, p1pool, p2pool);
+    var p1score = players[0].score
+    var p1pool = players[0].pool
+    var p2score = players[1].score
+    var p2pool = players[1].pool
+    updateScore(p1score, p2score, p1pool, p2pool);
+
 
 
   });
