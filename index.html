@@ -10,35 +10,42 @@
   </head>
   <body>
     <div class="container">
+      <h2 class="jumbotron">Welcome to the game of pig  dice !!</h2>
+<form id="name-input" >
+  <label for="playerone">enter player one name :</label>
+  <input id="playeronename"type="text" name="playerone" >
+  <br>
+  <label for="playertwo">enter player two name :</label>
+  <input id="playertwoname"type="text" name="playertwo" >
+  <button type="submit" name="button">ENTER</button>
+
+
+</form>
       <form id="pigs" >
-        <h2 class="jumbotron">Welcome to the game of pig  dice !!</h2>
-        <h1>Playerone</h1>
+        <h1 id="player-one-header">Playerone</h1>
         <p>  playerone score is : <span id="p1score"></span></p>
         <p>playerone pool is : <span id="p1pool"></span></p>
 
-        <h1>Playertwo</h1>
+        <h1 id="player-two-header">Playertwo</h1>
         <p>  playertwo score is : <span id="p2score"></span></p>
         <p>playertwo pool is : <span id="p2pool"></span></p>
-
-
-
-
 
         <button type="button" name="button" id="hold-btn">Hold</button>
 
         <button type="button" name="button" id="roll-dice-btn">Roll Dice</button>
         <p>The die rolled : <span id="die"></span></p>
       </form>
-<div class="winnerdisplay">
-  <h2>The winner is : <span id="winner-name"></span></h2>
-  <br>
-  <br>
-  <h2>The loser is : <span id="loser-name"></span></h2>
-  <br>
-<p>The winning score is : <span id="Wscore"></span></p>
-<p>The LOSER score is : <span id="Lscore"></span></p>
+      <div class="winnerdisplay">
+        <h2>The winner is : <span id="winner-name"></span></h2>
+        <br>
+        <br>
+        <h2>The loser is : <span id="loser-name"></span></h2>
+        <br>
+        <p>The winning score is : <span id="Wscore"></span></p>
+        <p>The LOSER score is : <span id="Lscore"></span></p>
+        <button id="replay" type="button" name="button">Play again?</button>
 
-</div>
+      </div>
     </div>
   </body>
 </html>
