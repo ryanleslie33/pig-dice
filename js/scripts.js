@@ -2,22 +2,51 @@
 
 
 
-function Player(name){
+function Player(name, index = 1){
   this.score = 0,
   this.player = name,
-  this.pool = 0
+  this.pool = 0,
+  this.index = index
 }
 
 function rollDice() {
-  var dice = Math.floor(Math.random() * 3) + 1;
+  var dice = Math.floor(Math.random() * 6) + 1;
   if( dice === 1){
     return false;
   } else {
     return dice;
   }
 }
+Player.prototype.easyAiOneDice = function(){
+  var roll = rollDice();
+  var easy = []
 
+  if (roll){
+    this.pool += roll;
+    easy.push(roll)
+    roll = rollDice()
 
+    if (roll) {
+      this.pool += roll;
+      easy.push(roll)
+
+    } else {
+      this.pool = 0;
+      easy.push("bust");
+    }
+
+  } else {
+    this.pool = 0;
+    easy.push("bust")
+  }
+
+  this.score += this.pool;
+  this.pool = 0;
+return easy;
+
+}
+
+var cpu = new Player("cpu");
 
 Player.prototype.increaseDoubleDice = function(){
   var double =  rollDice()
@@ -41,8 +70,6 @@ Player.prototype.increaseDoubleDice = function(){
 
 }
 
-var testDouble = new Player("test");
-
 Player.prototype.increasePool = function() {
   var roll = rollDice();
   if (roll) {
@@ -57,7 +84,7 @@ Player.prototype.increasePool = function() {
 Player.prototype.hold = function() {
   this.score += this.pool;
   this.pool = 0;
-  if(this.score >= 30){
+  if(this.score >= 100){
 
     return true;
   } else {
@@ -78,9 +105,9 @@ function high() {
     $("#p1-field").toggleClass( "highlight" );
 }
 
-function switchPlayer(turn) {
+function switchPlayer(turn, index) {
   if(turn === 0){
-    turn = 1;
+    turn = index;
   } else {
     turn = 0;
   }
@@ -91,12 +118,12 @@ function switchPlayer(turn) {
 }
 
 
-function updateScoreScreen(playerArray, diceRoll="no roll") {
+function updateScoreScreen(playerArray, index = 1, diceRoll="no roll") {
 
   p1currentScore = playerArray[0].score;
   p1currentPool = playerArray[0].pool;
-  p2currentScore = playerArray[1].score;
-  p2currentPool = playerArray[1].pool;
+  p2currentScore = playerArray[index].score;
+  p2currentPool = playerArray[index].pool;
 
   $("#p1score").text(p1currentScore);
   $("#p1pool").text(p1currentPool);
@@ -107,9 +134,9 @@ function updateScoreScreen(playerArray, diceRoll="no roll") {
 }
 
 
-function displayWinner(playersArray, currentPlayer){
+function displayWinner(playersArray, currentPlayer, index){
   var winner = playersArray[currentPlayer];
-  var loser = playersArray[switchPlayer(currentPlayer)];
+  var loser = playersArray[switchPlayer(currentPlayer, index)];
 
   $("#winner-name").text(winner.player);
   $("#loser-name").text(loser.player);
@@ -124,9 +151,15 @@ function displayWinner(playersArray, currentPlayer){
 
 
 $(document).ready(function() {
-  var playerOne = new Player("player1");
-  var playerTwo = new Player("player2");
-  var players = [playerOne, playerTwo];
+  var playerOne = new Player("player1", 0);
+  var playerTwo = new Player("player2", 0);
+  var compPlayerEasy = new Player("Easy Ai", 1);
+  var compPlayerHard = new Player("Hard Ai", 2);
+
+
+  var players = [playerOne, playerTwo, compPlayerEasy,compPlayerHard];
+  var index = 2; // at some point click a button to choose enemy type
+  var aiWinCheck = false;
   var currentPlayer = 0;
 
   $("#name-input").submit(function(event){
@@ -151,7 +184,7 @@ $(document).ready(function() {
     $("#player-one-header").text(p1header);
     $("#player-two-header").text(p2header);
 
-    updateScoreScreen(players);
+    updateScoreScreen(players, index);
 
     if (currentPlayer != 0) {
       high();
@@ -192,7 +225,7 @@ $(document).ready(function() {
     }
 
 
-    updateScoreScreen(players, diceString);
+    updateScoreScreen(players,index, diceString);
 
   });
 
@@ -201,25 +234,50 @@ $(document).ready(function() {
 
     var dice = players[currentPlayer].increasePool();
     if(!dice){
-      currentPlayer = switchPlayer(currentPlayer);
       dice = "BUST"
+      console.log("You 'busted'")
+      if (index > 1 && players[index].index != 0) {
+        setTimeout(function(){ aiRollfunction(players, index); }, 2000);
+        high();
+      } else {
+        currentPlayer = switchPlayer(currentPlayer, index);
+      }
     }
 
-    updateScoreScreen(players, dice);
+    updateScoreScreen(players,index, dice);
+
+    console.log("your roll was " + dice);
+
+
   });
 
+
+  aiRollfunction = function(players, index) {
+    var AiDiceResults = players[index].easyAiOneDice();
+    updateScoreScreen(players,index, AiDiceResults)
+    console.log("Ai rolled");
+    currentPlayer = switchPlayer(AiDiceResults, currentPlayer, index);
+    return AiDiceResults;
+
+  }
 
   $("#hold-btn").click(function(event) {
     event.preventDefault();
 
     var turn = players[currentPlayer].hold();
     if (turn) {
-      displayWinner(players, currentPlayer);
+      displayWinner(players, currentPlayer, index);
     } else {
-      currentPlayer = switchPlayer(currentPlayer);
+      currentPlayer = switchPlayer(currentPlayer, index);
+    }
+    console.log("you held ");
+
+    updateScoreScreen(players, index)
+    if (index > 1 && players[index].index != 0) {
+      setTimeout(function(){ aiRollfunction(players, index); }, 2000);
     }
 
-    updateScoreScreen(players)
+
   });
 
 

@@ -9,12 +9,85 @@
 _Player can choose their name to display in-game. Players take turns "rolling dice"._
 
 ## Specifications
-* _**When User inputs a simple "input", the expected result should be a completed simple task "expected result".**_  
-_Example Input: "input"_  
-_Example Output: "expected result"_
-* _**When User inputs a slightly more complex input "Input Two", the expected result should handle this new, and any previous specifications.**_  
-_Example Input: "Ha$~vE!"_  
-_Example Output: "have"_
+* When a user opens the webpage there will be input options for two players to type in their names. If they decide to do so, their names will display on the board.
+
+  Example:  
+  Input: "John"
+
+  Play screen:  
+
+  ##  John
+  score:  
+  pool:
+
+
+* You can choose to play the game with two dice or one die.  
+
+  Example:  
+  Click: "One Die"
+
+  Play screen displays:  
+
+  Hold, Roll Die
+
+  Example:  
+  Click: "Two Dice"
+
+  Play screen displays:  
+
+  Hold, Roll Dice
+
+* While Playing with **one** dice, A player can choose to 'roll die' which will add a counter to their pool and display the dice roll.
+
+  Example:  
+  If you roll: 4
+  Display should be: roll: 4, score: 0, pool: 4
+
+  If you then roll: 2
+  Display should be: roll: 2, score: 0, pool: 6
+
+* While Playing with **one** dice, if a player chooses to 'roll die' and the result is 1 the player should 'BUST', dropping their pool to zero.  
+
+  Example:  
+  If you first roll: 4
+  Display should be: roll: 4, score: 0, pool: 4
+
+  If you then roll: 2
+  Display should be: roll: 2, score: 0, pool: 6
+
+  If you third roll: 1
+  Display should be: roll: BUST, score: 0, pool: 0
+
+* Once you choose your options of play you roll the dice until one player reaches 100.
+* When a user rolls a one on the dice it will return a "bust"
+* Once the user rolls a bust there
+
+* While Playing with **two** dice, A player can choose to 'roll dice' which will add a counter to their pool and display the dice roll.
+
+  Example:  
+  If you roll: 4 and 5
+  Display should be: roll: 4, 5, score: 0, pool: 9
+
+  If you then roll: 2 and 3
+  Display should be: roll: 2, 3, score: 0, pool: 15
+
+* While Playing with **two** dice, if a player chooses to 'roll dice' and the result for either dice is 1 the player should 'BUST', dropping their pool to zero.  
+
+  Example:  
+  If you first roll: 4 and 5
+  Display should be: roll: 4, 5, score: 0, pool: 9
+
+  If you then roll: 2 and 3
+  Display should be: roll: 2, 3, score: 0, pool: 15
+
+  If you third roll: 1, 4
+  Display should be: roll: BUST, score: 0, pool: 0
+
+* Once you choose your options of play you roll the dice until one player reaches 100.
+* When a user rolls a one on the dice it will return a "bust"
+* Once the user rolls a bust there
+
+
 
 ## Setup/Installation Requirements
 
