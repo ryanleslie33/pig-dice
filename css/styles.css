@@ -1,9 +1,40 @@
 .winnerdisplay{
   display:none;
+
+}
+
+.pig{
+    background-image: url(https://images.unsplash.com/photo-1538118160270-1529bee869ba?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cde91f97d0d7ed0c974dcc055c8d543d&auto=format&fit=crop&w=2251&q=80);
+  background-size: contain;
+  color: white;
+
 }
 .jumbotron{
   font-size: 40px;
 }
 #pigs{
+  display: none;
+}
+
+#p2-field{
+  float:right;
+}
+#btn-field{
+  text-align: center;
+}
+.highlight{
+  background-color: #a5c9db;
+  color:	white;
+  text-shadow: 	black;
+  width: 30%;
+}
+body{
+
+  width: 100%;
+  color: 	#285621;
+  background-color: #dddddd;
+}
+
+#roll-two-div {
   display: none;
 }

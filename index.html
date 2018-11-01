@@ -11,29 +11,46 @@
   <body>
     <div class="container">
       <h2 class="jumbotron">Welcome to the game of pig  dice !!</h2>
-<form id="name-input" >
-  <label for="playerone">enter player one name :</label>
-  <input id="playeronename"type="text" name="playerone" >
-  <br>
-  <label for="playertwo">enter player two name :</label>
-  <input id="playertwoname"type="text" name="playertwo" >
-  <button type="submit" name="button">ENTER</button>
+      <form id="name-input" >
+        <label for="playerone">enter player one name :</label>
+        <input id="playeronename"type="text" name="playerone" >
+        <br>
+        <label for="playertwo">enter player two name :</label>
+        <input id="playertwoname"type="text" name="playertwo" >
+        <button type="submit" name="button">ENTER</button>
+        <button id="select-roll-one"type="button" name="button">roll one dice</button>
+
+        <button id="select-roll-two"type="button" name="button">roll two dice</button>
+        <br>
+        <br>
 
 
-</form>
+      </form>
       <form id="pigs" >
-        <h1 id="player-one-header">Playerone</h1>
-        <p>  playerone score is : <span id="p1score"></span></p>
-        <p>playerone pool is : <span id="p1pool"></span></p>
+        <div id="p2-field" class="">
+          <h1 id="player-two-header">Playertwo</h1>
+          <p>  playertwo score is : <span id="p2score"></span></p>
+          <p>playertwo pool is : <span id="p2pool"></span></p>
+        </div>
+        <div id="p1-field" class="highlight">
+          <h1 id="player-one-header">Playerone</h1>
+          <p>  playerone score is : <span id="p1score"></span></p>
+          <p>playerone pool is : <span id="p1pool"></span></p>
+        </div>
+        <div id="btn-field">
+          <button type="button" name="button" id="hold-btn">Hold</button>
 
-        <h1 id="player-two-header">Playertwo</h1>
-        <p>  playertwo score is : <span id="p2score"></span></p>
-        <p>playertwo pool is : <span id="p2pool"></span></p>
+          <div id="roll-one-div">
+            <button type="button" name="button" id="roll-dice-btn">Roll Die</button>
+          </div>
 
-        <button type="button" name="button" id="hold-btn">Hold</button>
+          <div id="roll-two-div">
+            <button type="button" name="button" id="roll-two-dice-btn">Roll Two Dice</button>
+          </div>
 
-        <button type="button" name="button" id="roll-dice-btn">Roll Dice</button>
-        <p>The die rolled : <span id="die"></span></p>
+          <p>The die rolled : <span id="die"></span></p>
+        </div>
+
       </form>
       <div class="winnerdisplay">
         <h2>The winner is : <span id="winner-name"></span></h2>
@@ -44,7 +61,7 @@
         <p>The winning score is : <span id="Wscore"></span></p>
         <p>The LOSER score is : <span id="Lscore"></span></p>
         <button id="replay" type="button" name="button">Play again?</button>
-
+<!-- <button id= "two-diceroll" type="button" name="button">play with two dice</button> -->
       </div>
     </div>
   </body>
